@@ -25,10 +25,13 @@ class MonitorCreate extends Controller {
         }
 
         $main_user=\Altum\Teams::get_main_user();
+        // get_plan_by_id
+        // dd($main_user);
 
         /* Check for the plan limit */
         $total_rows = database()->query("SELECT COUNT(*) AS `total` FROM `monitors` WHERE `user_id` = {$main_user->user_id}")->fetch_object()->total ?? 0;
 
+        // dd($main_user);
         if($main_user->plan_settings->monitors_limit != -1 && $total_rows >= $main_user->plan_settings->monitors_limit) {
             Alerts::add_info(l('global.info_message.plan_feature_limit'));
             redirect('monitors');
@@ -36,12 +39,14 @@ class MonitorCreate extends Controller {
 
         /* Get available projects */
         $projects = (new \Altum\Models\Projects())->get_projects_by_user_id($main_user->user_id);
+        // dd($projects);
 
         /* Get available notification handlers */
         $notification_handlers = (new \Altum\Models\NotificationHandlers())->get_notification_handlers_by_user_id($main_user->user_id);
 
         /* Get available ping servers */
         $ping_servers = (new \Altum\Models\PingServers())->get_ping_servers();
+        // dd($ping_servers);
 
         /* Monitors vars */
         $monitor_check_intervals = require APP_PATH . 'includes/monitor_check_intervals.php';
@@ -269,6 +274,7 @@ class MonitorCreate extends Controller {
             'monitor_timeouts' => $monitor_timeouts,
             'values' => $values
         ];
+        // dd($data);
 
         $view = new \Altum\View('monitor-create/index', (array) $this);
 

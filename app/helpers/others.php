@@ -966,7 +966,8 @@ function get_language_from_locale($locale) {
 
 /* Dump & die */
 function dd($string = null) {
-    var_dump($string);
+    echo "<pre>";
+    print_r($string);
     die();
 }
 

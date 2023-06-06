@@ -1,7 +1,7 @@
 <?php
 
 /* Enabling debug mode is only for debugging / development purposes. */
-const DEBUG = 0;
+const DEBUG = 1;
 
 /* Enabling mysql debug mode is only for debugging / development purposes. */
 const MYSQL_DEBUG = 0;
