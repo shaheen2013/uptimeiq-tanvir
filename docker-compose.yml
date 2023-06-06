@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  web:
+    image: webdevops/php-apache:8.1-alpine
+    container_name: webapp
+    ports:
+      - "9000:80"
+    volumes:
+      - .:/app
+  db:
+    restart: always
+    image: mysql:8.0
+    container_name: mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=uptimeiq
+      - MYSQL_USER=rashed
+      - MYSQL_PASSWORD=password
+      - TZ=Asia/Dhaka
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80

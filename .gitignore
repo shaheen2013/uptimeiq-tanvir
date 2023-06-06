@@ -1,0 +1,5 @@
+/config.php
+/uploads/logs/*log
+/uploads/cache/66uptime/Files/**/
+/.idea
+/mysql
